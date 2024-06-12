@@ -30,7 +30,7 @@ Ctrl + C
 ================================================================================
 Docker
 1. 撰寫 Dockerfile
-以下是一個基本的 Dockerfile 來封裝您的 Spring Boot 應用 (welcome-service-8080) 為 Docker 容器：
+以下是一個基本的 Dockerfile 來封裝您的 Spring Boot 應用 (feign-product-service-9091) 為 Docker 容器：
 
 Dockerfile
 --------------------------------------------------------------------------------
@@ -46,15 +46,15 @@ COPY target/feign-product-service-9091-0.0.1-SNAPSHOT.jar /app/feign-product-ser
 # 容器啟動時執行的命令，啟動 Spring Boot 應用
 CMD ["java", "-jar", "/app/feign-product-service.jar"]
 
-# 暴露 8080 端口，供外部訪問
-EXPOSE 8080
+# 暴露 9091 端口，供外部訪問
+EXPOSE 9091
 --------------------------------------------------------------------------------
 使用說明：
 基礎鏡像：這裡使用的是 openjdk:17-jdk-slim，這是一個精簡版的 Java 17 JDK 官方鏡像，用於運行 Java 應用 （https://hub.docker.com/_/openjdk）。
 工作目錄：設定容器內的工作目錄為 /app。
 複製應用：將打包好的 Spring Boot 應用（jar 文件）從您的構建上下文（通常是您的項目根目錄，包含 Dockerfile 的位置）複製到容器的 /app 目錄下，並命名為 feign-product-service.jar。
 運行應用：容器啟動時，執行 java -jar /app/feign-product-service.jar 命令啟動 Spring Boot 應用。
-暴露端口：EXPOSE 8080 便於在運行容器時可以將此端口映射到主機。
+暴露端口：EXPOSE 9091 便於在運行容器時可以將此端口映射到主機。
 
 ** 注意請先要啟動 Docker Desktop **
 
@@ -78,13 +78,13 @@ docker images -q：這個命令會列出所有映像檔的 ID
 
 3.運行 Docker 容器
 構建完成後，運行以下命令來啟動容器：
-docker run -p 8080:8080 --name my-feign-product-service-container feign-product-service
-				^    ^	 			  	// -p 是 port 將宿主機的 8080 端口映射到容器內的 8080 端口
+docker run -p 9091:9091 --name my-feign-product-service-container feign-product-service
+				^    ^	 			  	// -p 是 port 將宿主機的 9091 端口映射到容器內的 9091 端口
                 |    |                  // feign-product-service 是所構建的鏡像名稱
                 |    |                  // my-feign-product-service-container 是容器名稱
-              宿主機  容器內               // 8080:8080 是指 host:container
-              這意味著 Docker 將宿主機的 8080 端口映射到容器內的 8080 端口，
-              這樣宿主機上的應用程序就可以通過訪問 localhost:8080 來訪問容器內運行的應用程序。
+              宿主機  容器內               // 9091:9091 是指 host:container
+              這意味著 Docker 將宿主機的 9091 端口映射到容器內的 9091 端口，
+              這樣宿主機上的應用程序就可以通過訪問 localhost:9091 來訪問容器內運行的應用程序。
 
 ================================================================================
 所有容器:
