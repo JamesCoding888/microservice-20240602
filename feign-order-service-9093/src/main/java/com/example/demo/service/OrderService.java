@@ -40,7 +40,7 @@ public class OrderService {
 		orderDto.setId(order.getId());
 		orderDto.setOrderDate(order.getOrderDate());
 		// Acquire remote data from FEIGN-CUSTOMER-SERVICE-9092
-		Customer customer = customerClient.getCustomerById(order.getId()).getData();
+		Customer customer = customerClient.getCustomerById(order.getCustomerId()).getData();
 		orderDto.setCustomer(customer);		
 		for(Item item : order.getItems()) {
 			ItemDto itemDto = convertToDto(item);
